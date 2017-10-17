@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace AptekaTestDesktop
 {
@@ -36,19 +37,11 @@ namespace AptekaTestDesktop
 
         private void NameProduct_PreviewTextInput (object sender, TextCompositionEventArgs e)
         {
-            int val;
-            if (Int32.TryParse(e.Text, out val) && e.Text != "-")
-            {
-                e.Handled = true; // отклоняем ввод
-            }  
+            string  validChar = @"([0-9а-я])|[А-Я]|[.]";           //Цифры, русские буквы и символ '.'
+            if (!Regex.IsMatch(e.Text.ToString(), validChar))
+                e.Handled = true; 
         }
 
-        private void NameProduct_PreviewKeyDown (object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Space)
-            {
-                e.Handled = true; // если пробел, отклоняем ввод
-            }
-        }
+       
     }
 }

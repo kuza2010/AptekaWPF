@@ -54,7 +54,7 @@
             </Grid>
 
             <Grid>
-                <TextBox x:Name="NameProduct" PreviewTextInput="NameProduct_PreviewTextInput" PreviewKeyDown="NameProduct_PreviewKeyDown" MaxLength="50" TextWrapping="Wrap"  TextAlignment="Center" Height="54" 
+                <TextBox x:Name="NameProduct" PreviewTextInput="NameProduct_PreviewTextInput" MaxLength="50" TextWrapping="Wrap"  TextAlignment="Center" Height="54" 
                          Width="175" Margin="0 5 0 5" ToolTip="введите наименование товара"/>
             </Grid>
 

@@ -62,10 +62,6 @@
         <ControlTemplate TargetType="Label" x:Key="Menu">
             <ContentControl  Content="{TemplateBinding Content}" Style="{StaticResource MenuStyle}"></ContentControl>
         </ControlTemplate>
-        
-       
-        
-        
     </Window.Resources>
 
     <Grid x:Name="MainGrid" Style="{StaticResource Background_edf4fc}" >
