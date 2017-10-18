@@ -32,7 +32,23 @@ namespace AptekaTestDesktop
 
         private void ButtonOk_Click (object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (NameProduct.Text.ToString().Length != 0) 
+            {
+                //Скрыть
+                this.Visibility = Visibility.Hidden;
+
+                //Родитель для AddProduct это MainWindow?
+                MainWindow main = this.Owner as MainWindow;
+                if (main != null)
+                {
+                    //пердаем то, что написали в 
+                    string strNameProduct = NameProduct.Text.ToString();
+                    main.AddProduct(strNameProduct);
+                }
+                this.Close();
+                
+            }
+            else MessageBox.Show("Это окно временное, потом тут будет ошибка!");
         }
 
         private void NameProduct_PreviewTextInput (object sender, TextCompositionEventArgs e)
@@ -41,6 +57,7 @@ namespace AptekaTestDesktop
             if (!Regex.IsMatch(e.Text.ToString(), validChar))
                 e.Handled = true; 
         }
+
 
        
     }

@@ -67,7 +67,7 @@
     <Grid x:Name="MainGrid" Style="{StaticResource Background_edf4fc}" >
         <Line X1="0" Y1="33" X2="600" Y2="33" Stroke="Black"  />
         <Line X1="0" Y1="87" X2="600" Y2="87" Stroke="Black"  />
-        
+
         <StackPanel x:Name="StackPanell">
 
             <Grid x:Name="Title" Style="{StaticResource Background6792c1}" VerticalAlignment="Top" Height="23" />
@@ -84,11 +84,11 @@
             </Grid>
 
             <Grid>
-                <ScrollViewer  Style="{StaticResource ScrollBarStyle}">
-                    
-                    <StackPanel x:Name="AllProduct">
+                <ScrollViewer Style="{StaticResource ScrollBarStyle}">
 
-                    </StackPanel>
+                    <Grid x:Name="AllProducts">
+                        
+                    </Grid>
 
                 </ScrollViewer>
             </Grid>
@@ -106,7 +106,7 @@
             </Canvas>
         </Grid>
 
-        
+
     </Grid>
-    
+
 </Window>
