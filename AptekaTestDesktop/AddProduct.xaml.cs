@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace AptekaTestDesktop
 {
@@ -26,29 +16,32 @@ namespace AptekaTestDesktop
 
         private void ButtonCancle_Click (object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void ButtonOk_Click (object sender, RoutedEventArgs e)
         {
-            this.Close();
-        }
-
-        private void NameProduct_PreviewTextInput (object sender, TextCompositionEventArgs e)
-        {
-            int val;
-            if (Int32.TryParse(e.Text, out val) && e.Text != "-")
+            if (NameProduct.Text.ToString().Length != 0)
             {
-                e.Handled = true; // отклоняем ввод
-            }  
-        }
+                
+                Visibility = Visibility.Hidden; //Скрыть
+                MainWindow main = Owner as MainWindow; //Родитель для AddProduct это MainWindow?
+                if (main != null)
+                {                     
+                    string strNameProduct = NameProduct.Text;
+                    main.AddProduct(strNameProduct);
+                }
+                Close();
 
-        private void NameProduct_PreviewKeyDown (object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Space)
-            {
-                e.Handled = true; // если пробел, отклоняем ввод
             }
+            else MessageBox.Show("Это окно временное, потом тут будет ошибка!");
+        }
+
+        private void NameProduct_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            string validChar = @"([0-9а-я])|[А-Я]|[.]";           //Цифры, русские буквы и символ '.'
+            if (!Regex.IsMatch(e.Text.ToString(), validChar))
+                e.Handled = true;
         }
     }
 }

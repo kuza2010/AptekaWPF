@@ -89,10 +89,10 @@
 
             <Grid>
                 <ScrollViewer  Style="{StaticResource ScrollBarStyle}">
-                    
-                    <StackPanel x:Name="AllProduct">
 
-                    </StackPanel>
+                    <Grid x:Name="AllProducts">
+
+                    </Grid>
 
                 </ScrollViewer>
             </Grid>
@@ -104,7 +104,7 @@
                 <Button x:Name="ButtonAddProduct"  Template="{StaticResource ButtonToolBarTemplate}"  
                         Content="Добавить" Canvas.Top="9" Canvas.Left="20" Click="ButtonAddProduct_Click" Cursor="Hand" />
                 <Button x:Name="ButtonDelProduct" Template="{StaticResource ButtonToolBarTemplate}"   
-                        Content="Удалить" Canvas.Top="9" Canvas.Left="186" Cursor="Hand" />
+                        Content="Удалить" Canvas.Top="9" Canvas.Left="186" Cursor="Hand" Click="ButtonDelProduct_Click" />
                 <Button x:Name="ButtonExit" Template="{StaticResource ButtonToolBarTemplate}" 
                         Canvas.Top="9" Canvas.Right="27" Content="Выход" Cursor="Hand"/>
             </Canvas>
