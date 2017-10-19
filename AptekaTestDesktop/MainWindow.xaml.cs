@@ -21,13 +21,13 @@ namespace AptekaTestDesktop
     public partial class MainWindow : Window
     {
       
-        private Canvas can;
+        private Canvas canvas;
         int count = 0;
 
         public MainWindow ()
         {
             InitializeComponent();
-            AllProducts.Background = new SolidColorBrush(Colors.Yellow);
+            AllProducts.Background = new SolidColorBrush(Colors.Gray);
         }
 
         private void ButtonAddProduct_Click (object sender, RoutedEventArgs e)
@@ -37,53 +37,94 @@ namespace AptekaTestDesktop
             windowAddProduct.ShowDialog();  //Отобрразить как диалоговое окно
         }
 
-        public void AddProduct (string pNameProduct)
+        public void AddProduct (string nameProduct)
         {
             RowDefinition rowDef = new RowDefinition();
             AllProducts.RowDefinitions.Add(rowDef);
+            canvas = new Canvas();
+
+            Label labelNumber = new Label();
+            labelNumber.Content = (count + 1).ToString() + ".";
+
+            Label labelNameProduct = new Label();
+            TextBlock textblockNameProduct = new TextBlock();
+            textblockNameProduct.Text = nameProduct;
+            textblockNameProduct.TextWrapping = TextWrapping.Wrap;
+            labelNameProduct.Content = textblockNameProduct;
+
+            Label amount = new Label();
+
+            Button buttonAdd = new Button();
+            buttonAdd.Content = "Пополнить";
+
+            Label AddorDownAmount = new Label();
+
+            Button buttonDown = new Button();
+            buttonDown.Content = "Списать";
+
+
+
+            canvas.Children.Add(labelNumber);
+            canvas.Children.Add(labelNameProduct);
+            canvas.Children.Add(amount);
+            canvas.Children.Add(buttonAdd);
+            canvas.Children.Add(AddorDownAmount);
+            canvas.Children.Add(buttonDown);
+
+            Canvas.SetTop(labelNumber, 11);
+            labelNumber.Height = 54;
+            labelNumber.Width = 32;
+            labelNumber.HorizontalContentAlignment = HorizontalAlignment.Center;
+            labelNumber.VerticalContentAlignment = VerticalAlignment.Center;
+
+            Canvas.SetTop(labelNameProduct, 11);
+            Canvas.SetLeft(labelNameProduct, 33);
+            labelNameProduct.Height = 54;
+            labelNameProduct.Width = 175;
+            labelNameProduct.HorizontalContentAlignment = HorizontalAlignment.Left;
+            labelNameProduct.VerticalContentAlignment = VerticalAlignment.Center;
+
+            Canvas.SetTop(amount, 11);
+            Canvas.SetLeft(amount, 233);
+            amount.Height = 54;
+            amount.Width = 54;
+            amount.HorizontalContentAlignment = HorizontalAlignment.Center;
+            amount.VerticalContentAlignment = VerticalAlignment.Center;
+            amount.Background = new SolidColorBrush(Colors.White);
+
+            Canvas.SetTop(buttonAdd, 23);
+            Canvas.SetLeft(buttonAdd, 305);
+            buttonAdd.Height = 30;
+            buttonAdd.Width = 100;
+            buttonAdd.HorizontalContentAlignment = HorizontalAlignment.Center;
+            buttonAdd.VerticalContentAlignment = VerticalAlignment.Center;
+            buttonAdd.Background = new SolidColorBrush(Colors.White);
+
+            Canvas.SetTop(AddorDownAmount, 13);
+            Canvas.SetLeft(AddorDownAmount, 405);
+            AddorDownAmount.Height = 54;
+            AddorDownAmount.Width = 54;
+            AddorDownAmount.HorizontalContentAlignment = HorizontalAlignment.Center;
+            AddorDownAmount.VerticalContentAlignment = VerticalAlignment.Center;
+            AddorDownAmount.Background = new SolidColorBrush(Colors.White);
+
+            Canvas.SetTop(buttonDown, 23);
+            Canvas.SetLeft(buttonDown, 459);
+            buttonDown.Height = 30;
+            buttonDown.Width = 100;
+            buttonDown.HorizontalContentAlignment = HorizontalAlignment.Center;
+            buttonDown.VerticalContentAlignment = VerticalAlignment.Center;
+            buttonDown.Background = new SolidColorBrush(Colors.White);
+
+            Grid.SetRow(canvas, count);
+
+            AllProducts.Children.Add(canvas);
+
             rowDef.Height = new GridLength(75);
-            can = new Canvas();
-            Label number = new Label();
-            TextBlock textbox = new TextBlock();
-            Label nameProduct = new Label();
-            TextBlock amount = new TextBlock();
-            
-            //Добавить в Canvas элементы одного товарного наименования
-            can.Children.Add(nameProduct);
-            can.Children.Add(number);
-            can.Children.Add(amount);
-            
-            //Номер 
-            number.Content = count + 1;   //Поменять номер
-            Canvas.SetTop(number,11);
-            number.Height = 54;
-            number.Width = 32;
-            number.HorizontalContentAlignment = HorizontalAlignment.Center;
-            number.VerticalContentAlignment = VerticalAlignment.Center;
-            
-            //Наименование
-            Canvas.SetTop(nameProduct,11);
-            Canvas.SetLeft(nameProduct, 33);
-            nameProduct.Height = 54;
-            nameProduct.Width = 175;
-            nameProduct.VerticalContentAlignment= VerticalAlignment.Center;
-            nameProduct.HorizontalContentAlignment = HorizontalAlignment.Left;
-            nameProduct.Background = new SolidColorBrush(Colors.Green);
-            nameProduct.Content = textbox;
-            //Текст в label устанавливаем через TextBlock
-            textbox.Text = pNameProduct;
-            textbox.TextWrapping = TextWrapping.Wrap;
 
-            //Количество
-
-
-            //Добавить канвас в грид           
-            Grid.SetRow(can, count);
-            AllProducts.Children.Add(can);
-            
             count++;
 
-          
+
         }
 
         private void ButtonDelProduct_Click (object sender, RoutedEventArgs e)
@@ -102,7 +143,7 @@ namespace AptekaTestDesktop
                 }
             }
 
-            if (Grid.GetRow(can)==0&& Grid.GetColumn(can) == 0)
+            if (Grid.GetRow(canvas)==0&& Grid.GetColumn(canvas) == 0)
             ButtonDelProduct.Content = "eewq";
         }
     }
