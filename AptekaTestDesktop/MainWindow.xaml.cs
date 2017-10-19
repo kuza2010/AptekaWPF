@@ -48,11 +48,13 @@ namespace AptekaTestDesktop
 
             Button buttonAdd = new Button();
             buttonAdd.Content = "Пополнить";
+            buttonAdd.Template = (ControlTemplate)TryFindResource("ButtonAddorDownTemplate");
 
             Label AddorDownAmount = new Label();
 
             Button buttonDown = new Button();
             buttonDown.Content = "Списать";
+            buttonDown.Template = (ControlTemplate)TryFindResource("ButtonAddorDownTemplate");
 
 
 
@@ -77,7 +79,7 @@ namespace AptekaTestDesktop
             labelNameProduct.VerticalContentAlignment = VerticalAlignment.Center;
 
             Canvas.SetTop(amount, 11);
-            Canvas.SetLeft(amount, 267);
+            Canvas.SetLeft(amount, 230);
             amount.Height = 54;
             amount.Width = 54;
             amount.HorizontalContentAlignment = HorizontalAlignment.Center;
@@ -85,12 +87,7 @@ namespace AptekaTestDesktop
             amount.Background = new SolidColorBrush(Colors.White);
 
             Canvas.SetTop(buttonAdd, 23);
-            Canvas.SetLeft(buttonAdd, 305);
-            buttonAdd.Height = 30;
-            buttonAdd.Width = 100;
-            buttonAdd.HorizontalContentAlignment = HorizontalAlignment.Center;
-            buttonAdd.VerticalContentAlignment = VerticalAlignment.Center;
-            buttonAdd.Background = new SolidColorBrush(Colors.White);
+            Canvas.SetLeft(buttonAdd, 312);
 
             Canvas.SetTop(AddorDownAmount, 13);
             Canvas.SetLeft(AddorDownAmount, 405);
@@ -101,12 +98,7 @@ namespace AptekaTestDesktop
             AddorDownAmount.Background = new SolidColorBrush(Colors.White);
 
             Canvas.SetTop(buttonDown, 23);
-            Canvas.SetLeft(buttonDown, 459);
-            buttonDown.Height = 30;
-            buttonDown.Width = 100;
-            buttonDown.HorizontalContentAlignment = HorizontalAlignment.Center;
-            buttonDown.VerticalContentAlignment = VerticalAlignment.Center;
-            buttonDown.Background = new SolidColorBrush(Colors.White);
+            Canvas.SetLeft(buttonDown, 467);
 
             Grid.SetRow(canvas, count);
 
@@ -139,6 +131,11 @@ namespace AptekaTestDesktop
                     }
                 }
             }
+        }
+
+        private void ButtonExit_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
