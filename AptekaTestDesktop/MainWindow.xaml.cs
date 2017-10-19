@@ -39,7 +39,8 @@ namespace AptekaTestDesktop
 
         public void AddProduct (string nameProduct)
         {
-            AllProducts.RowDefinitions.Add(new RowDefinition());
+            RowDefinition rowDef = new RowDefinition();
+            AllProducts.RowDefinitions.Add(rowDef);
             can = new Canvas();
             Label number = new Label();
             can.Children.Add(number);
@@ -53,8 +54,31 @@ namespace AptekaTestDesktop
             Grid.SetColumn(can, 0);
             Grid.SetRow(can, count);
             AllProducts.Children.Add(can);
-            AllProducts.RowDefinitions[count].Height = new GridLength(75);
-            count++; 
+            rowDef.Height = new GridLength(75);
+            count++;
+
+          
+        }
+
+        private void ButtonDelProduct_Click (object sender, RoutedEventArgs e)
+        {
+            foreach (var gridChild in AllProducts.Children)
+            {
+                var canv = gridChild as Canvas;
+                if (canv != null&& Grid.GetRow(canv)==2)
+                {
+                   foreach(var q in canv.Children)
+                    {
+                        var labl = q as Label;
+                        if (q != null)
+                            labl.Content = "qwe";
+                    }
+                }
+            }
+
+            if (Grid.GetRow(can)==0&& Grid.GetColumn(can) == 0)
+            ButtonDelProduct.Content = "eewq";
         }
     }
+
 }
