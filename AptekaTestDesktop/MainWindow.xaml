@@ -79,7 +79,7 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="MenuName" Template="{StaticResource Menu}"  Grid.Column="0" Content="Наименование"></Label>
+                <Label x:Name="MenuName" Template="{StaticResource Menu}"  Grid.Column="0" Content="Наименование товара"></Label>
                 <Label x:Name="MenuAmount" Template="{StaticResource Menu}"  Grid.Column="1" Content="Кол-во(шт.)"></Label>
             </Grid>
 

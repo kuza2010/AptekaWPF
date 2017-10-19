@@ -37,24 +37,50 @@ namespace AptekaTestDesktop
             windowAddProduct.ShowDialog();  //Отобрразить как диалоговое окно
         }
 
-        public void AddProduct (string nameProduct)
+        public void AddProduct (string pNameProduct)
         {
             RowDefinition rowDef = new RowDefinition();
             AllProducts.RowDefinitions.Add(rowDef);
+            rowDef.Height = new GridLength(75);
             can = new Canvas();
             Label number = new Label();
+            TextBlock textbox = new TextBlock();
+            Label nameProduct = new Label();
+            TextBlock amount = new TextBlock();
+            
+            //Добавить в Canvas элементы одного товарного наименования
+            can.Children.Add(nameProduct);
             can.Children.Add(number);
+            can.Children.Add(amount);
+            
+            //Номер 
             number.Content = count + 1;   //Поменять номер
             Canvas.SetTop(number,11);
             number.Height = 54;
             number.Width = 32;
             number.HorizontalContentAlignment = HorizontalAlignment.Center;
             number.VerticalContentAlignment = VerticalAlignment.Center;
+            
+            //Наименование
+            Canvas.SetTop(nameProduct,11);
+            Canvas.SetLeft(nameProduct, 33);
+            nameProduct.Height = 54;
+            nameProduct.Width = 175;
+            nameProduct.VerticalContentAlignment= VerticalAlignment.Center;
+            nameProduct.HorizontalContentAlignment = HorizontalAlignment.Left;
+            nameProduct.Background = new SolidColorBrush(Colors.Green);
+            nameProduct.Content = textbox;
+            //Текст в label устанавливаем через TextBlock
+            textbox.Text = pNameProduct;
+            textbox.TextWrapping = TextWrapping.Wrap;
 
-            Grid.SetColumn(can, 0);
+            //Количество
+
+
+            //Добавить канвас в грид           
             Grid.SetRow(can, count);
             AllProducts.Children.Add(can);
-            rowDef.Height = new GridLength(75);
+            
             count++;
 
           
