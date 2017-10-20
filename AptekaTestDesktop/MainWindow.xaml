@@ -59,9 +59,30 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        
         <ControlTemplate TargetType="Label" x:Key="Menu">
             <ContentControl  Content="{TemplateBinding Content}" Style="{StaticResource MenuStyle}"></ContentControl>
         </ControlTemplate>
+
+        <ControlTemplate  TargetType="Label"  x:Key="TextBlockTemplate" >
+            <Border x:Name="Bd"  Background="White" BorderBrush="White" CornerRadius="10">
+                <ContentControl HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}"/>
+            </Border>
+        </ControlTemplate>
+
+        <ControlTemplate  TargetType="TextBox" x:Key="TextBoxTemplate" >
+
+            <Border x:Name="Bd"  Background="White" BorderBrush="White" CornerRadius="10">
+                <ScrollViewer x:Name="PART_ContentHost">
+                    
+                </ScrollViewer>
+
+            </Border>
+            
+           
+        </ControlTemplate>
+
+        
     </Window.Resources>
 
     <Grid x:Name="MainGrid" Style="{StaticResource Background_edf4fc}" >
@@ -71,7 +92,6 @@
         <StackPanel x:Name="StackPanell">
 
             <Grid x:Name="Title" Style="{StaticResource Background6792c1}" VerticalAlignment="Top" Height="23" />
-
 
             <Grid x:Name="Menu" VerticalAlignment="Top" Margin="0 10 0 0" Height="54" >
                 <Grid.ColumnDefinitions>
@@ -83,8 +103,8 @@
                 <Label x:Name="MenuAmount" Template="{StaticResource Menu}"  Grid.Column="1" Content="Кол-во(шт.)"></Label>
             </Grid>
 
-            <Grid>
-                <ScrollViewer Style="{StaticResource ScrollBarStyle}">
+            <Grid >
+                <ScrollViewer Style="{StaticResource ScrollBarStyle}" >
 
                     <Grid x:Name="AllProducts">
                         
@@ -92,6 +112,7 @@
 
                 </ScrollViewer>
             </Grid>
+   
         </StackPanel>
 
 

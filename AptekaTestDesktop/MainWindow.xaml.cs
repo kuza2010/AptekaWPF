@@ -27,7 +27,7 @@ namespace AptekaTestDesktop
         public MainWindow ()
         {
             InitializeComponent();
-            AllProducts.Background = new SolidColorBrush(Colors.Gray);
+          
         }
 
         private void ButtonAddProduct_Click (object sender, RoutedEventArgs e)
@@ -39,59 +39,74 @@ namespace AptekaTestDesktop
 
         public void AddProduct (string nameProduct)
         {
+            //Новая строчка в гриде
             RowDefinition rowDef = new RowDefinition();
+            rowDef.Height = new GridLength(75);
             AllProducts.RowDefinitions.Add(rowDef);
+
+            //Все элементы строчки вложены в канвас
             canvas = new Canvas();
 
+            //Номер товара и имя товара, количество,добавляемое количетсво товара
             Label labelNumber = new Label();
-            labelNumber.Content = (count + 1).ToString() + ".";
-
             Label labelNameProduct = new Label();
-            TextBlock textblockNameProduct = new TextBlock();
-            textblockNameProduct.Text = nameProduct;
-            textblockNameProduct.TextWrapping = TextWrapping.Wrap;
-            labelNameProduct.Content = textblockNameProduct;
-
             Label amount = new Label();
 
+            TextBox AddorDownAmount = new TextBox();
+
+            //ТекстБокс вложен в лейбл labelNameProduct
+            TextBlock textblockNameProduct = new TextBlock();
+         
+
+            
+
+            //Кнопки списать и добавить
             Button buttonAdd = new Button();
-            buttonAdd.Content = "Пополнить";
-
-            Label AddorDownAmount = new Label();
-
             Button buttonDown = new Button();
+            buttonAdd.Content = "Пополнить";   
             buttonDown.Content = "Списать";
 
-
-
+            //Добавление всех элементов в канвас
             canvas.Children.Add(labelNumber);
             canvas.Children.Add(labelNameProduct);
             canvas.Children.Add(amount);
             canvas.Children.Add(buttonAdd);
             canvas.Children.Add(AddorDownAmount);
             canvas.Children.Add(buttonDown);
+            //установитиь для канваса строку в гриде
+            Grid.SetRow(canvas, count);
 
+            //установка свойст для счетчика товара(лейбл)
             Canvas.SetTop(labelNumber, 11);
+            labelNumber.Content = (count + 1).ToString() + "."; //ИЗМЕНИТЬ --------------------------------------------------------
             labelNumber.Height = 54;
             labelNumber.Width = 32;
             labelNumber.HorizontalContentAlignment = HorizontalAlignment.Center;
             labelNumber.VerticalContentAlignment = VerticalAlignment.Center;
 
+            //Установка свойст имени продукта(текстбокс)
             Canvas.SetTop(labelNameProduct, 11);
             Canvas.SetLeft(labelNameProduct, 33);
+            //Имя товара
+            labelNameProduct.Content = textblockNameProduct;
             labelNameProduct.Height = 54;
             labelNameProduct.Width = 175;
             labelNameProduct.HorizontalContentAlignment = HorizontalAlignment.Left;
             labelNameProduct.VerticalContentAlignment = VerticalAlignment.Center;
+            textblockNameProduct.Text = nameProduct;
+            textblockNameProduct.TextWrapping = TextWrapping.Wrap;
 
+            //Установка свойств для  количества товара(лейбл)
             Canvas.SetTop(amount, 11);
             Canvas.SetLeft(amount, 233);
             amount.Height = 54;
             amount.Width = 54;
+            amount.Template = (ControlTemplate)FindResource("TextBlockTemplate");
             amount.HorizontalContentAlignment = HorizontalAlignment.Center;
             amount.VerticalContentAlignment = VerticalAlignment.Center;
             amount.Background = new SolidColorBrush(Colors.White);
 
+            //Установка свойств для кнопки добавить
             Canvas.SetTop(buttonAdd, 23);
             Canvas.SetLeft(buttonAdd, 305);
             buttonAdd.Height = 30;
@@ -100,14 +115,18 @@ namespace AptekaTestDesktop
             buttonAdd.VerticalContentAlignment = VerticalAlignment.Center;
             buttonAdd.Background = new SolidColorBrush(Colors.White);
 
+            //Установка свойст для товара который хотим списать/положить (лейбл)
             Canvas.SetTop(AddorDownAmount, 13);
             Canvas.SetLeft(AddorDownAmount, 405);
             AddorDownAmount.Height = 54;
             AddorDownAmount.Width = 54;
+            AddorDownAmount.Template = (ControlTemplate)FindResource("TextBoxTemplate");
+ 
             AddorDownAmount.HorizontalContentAlignment = HorizontalAlignment.Center;
             AddorDownAmount.VerticalContentAlignment = VerticalAlignment.Center;
             AddorDownAmount.Background = new SolidColorBrush(Colors.White);
-
+            
+            //Установка свойств для кнопки списать
             Canvas.SetTop(buttonDown, 23);
             Canvas.SetLeft(buttonDown, 459);
             buttonDown.Height = 30;
@@ -116,11 +135,11 @@ namespace AptekaTestDesktop
             buttonDown.VerticalContentAlignment = VerticalAlignment.Center;
             buttonDown.Background = new SolidColorBrush(Colors.White);
 
-            Grid.SetRow(canvas, count);
+            
 
             AllProducts.Children.Add(canvas);
 
-            rowDef.Height = new GridLength(75);
+            
 
             count++;
 
