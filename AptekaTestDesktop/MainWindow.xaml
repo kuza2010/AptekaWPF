@@ -31,6 +31,15 @@
             <Setter Property="Panel.HorizontalAlignment" Value="center"/>
             <Setter Property="Panel.VerticalAlignment" Value="center"/>
         </Style>
+        <Style x:Key="ButtonAddorDown">
+            <Setter Property="Button.Background" Value="#b6e2f5"/>
+            <Setter Property="Button.FontFamily" Value="TimeNewRoman"/>
+            <Setter Property="Button.FontSize" Value="10pt"/>
+            <Setter Property="Button.Foreground" Value="Black"/>
+            <Setter Property="Button.BorderThickness" Value="0"/>
+            <Setter Property="Button.Height" Value="30"/>
+            <Setter Property="Button.Width" Value="85"/>
+        </Style>
         <Style  x:Key="ScrollBarStyle" TargetType="ScrollViewer">
             <Setter Property="ScrollViewer.Height" Value="628"/>
             <Style.Triggers>

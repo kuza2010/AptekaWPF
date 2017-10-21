@@ -138,8 +138,8 @@ namespace AptekaTestDesktop
             buttonDown.HorizontalContentAlignment = HorizontalAlignment.Center;
             buttonDown.VerticalContentAlignment = VerticalAlignment.Center;
             buttonDown.Background = new SolidColorBrush(Colors.White);
+            buttonDown.Template = (ControlTemplate) TryFindResource("ButtonAddorDownTemplate");
 
-            
 
             AllProducts.Children.Add(canvas);
 
