@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Text.RegularExpressions;
 using System;
+using System.Collections.Generic;
 
 namespace AptekaTestDesktop
 {
@@ -20,16 +21,18 @@ namespace AptekaTestDesktop
 
         Canvas canvas;
         int count = 0;
-        
+        List<Label> listAmount=new List<Label>();
+        List<TextBox> listAddorDownAmount = new List<TextBox>();
+
 
         public void AddProduct(string nameProduct)
         {
-            RowDefinition rowDef = new RowDefinition();
-            AllProducts.RowDefinitions.Add(rowDef);
+            RowDefinition RowDef = new RowDefinition();
+            AllProducts.RowDefinitions.Add(RowDef);
             canvas = new Canvas();
 
             Label labelNumber = new Label();
-            labelNumber.Content = (count+1).ToString()+".";
+            labelNumber.Content = (count + 1).ToString()+".";
 
             Label labelNameProduct = new Label();
             TextBlock textblockNameProduct = new TextBlock();
@@ -38,24 +41,32 @@ namespace AptekaTestDesktop
             labelNameProduct.Content = textblockNameProduct;
 
             Label amount = new Label();
+            amount.FontSize = 25;
+            amount.Content = "0";
+            listAmount.Add(amount);
 
             Button buttonAdd = new Button();
             buttonAdd.Content = "Пополнить";
             buttonAdd.Template = (ControlTemplate)TryFindResource("ButtonAddorDownTemplate");
             buttonAdd.Click += new RoutedEventHandler(ButtonAdd_Click); //нажатие кнопки
-            //buttonAdd.Click += (sender, args) => MessageBox.Show(this, "Ура!");
+            buttonAdd.Name = "IndexRow_" + count.ToString();
 
             TextBox AddorDownAmount = new TextBox();
-            AddorDownAmount.FontSize = 25;
-            AddorDownAmount.PreviewTextInput += new TextCompositionEventHandler(textBox_PreviewTextInput); //событие,для проверки ввода в textbox только цифр
+            AddorDownAmount.Text = "0";
+            listAddorDownAmount.Add(AddorDownAmount);
+            listAddorDownAmount[count].FontSize = 25;
+            listAddorDownAmount[count].PreviewTextInput += new TextCompositionEventHandler(textBox_PreviewTextInput); //событие,для проверки ввода в textbox только цифр
+            listAddorDownAmount[count].MaxLength = 3;
 
             Button buttonDown = new Button();
             buttonDown.Content = "Списать";
             buttonDown.Template = (ControlTemplate)TryFindResource("ButtonAddorDownTemplate");
+            buttonDown.Click += new RoutedEventHandler(ButtonDown_Click); //нажатие кнопки
+            buttonDown.Name = "IndexRow_" + count.ToString();
 
             canvas.Children.Add(labelNumber);
             canvas.Children.Add(labelNameProduct);
-            canvas.Children.Add(amount);
+            canvas.Children.Add(listAmount[count]);
             canvas.Children.Add(buttonAdd);
             canvas.Children.Add(AddorDownAmount);
             canvas.Children.Add(buttonDown);
@@ -99,7 +110,7 @@ namespace AptekaTestDesktop
 
             AllProducts.Children.Add(canvas);
 
-            rowDef.Height = new GridLength(75);
+            RowDef.Height = new GridLength(75);
 
             count++;
         }
@@ -130,12 +141,44 @@ namespace AptekaTestDesktop
 
         void textBox_PreviewTextInput(object sender, TextCompositionEventArgs e) //функция,проверяющая ввод только цифр в textbox
         {
-            if (!char.IsDigit(e.Text, 0)) e.Handled = true;            
+            if (!char.IsDigit(e.Text, 0)|| ((TextBox)sender).Text == "0") e.Handled = true;
         }
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            
+            string name = ((Button)sender).Name;
+            int indexRow = Int32.Parse(name.Remove(0, 9));
+            int temp = AddAmount(listAmount[indexRow].Content, listAddorDownAmount[indexRow].Text);
+            listAmount[indexRow].Content = temp.ToString();
+            listAddorDownAmount[indexRow].Text = "0";
+
+        }
+
+        private void ButtonDown_Click(object sender, RoutedEventArgs e)
+        {
+            string name = ((Button)sender).Name;
+            int indexRow = Int32.Parse(name.Remove(0, 9));
+            int temp = DownAmount(listAmount[indexRow].Content, listAddorDownAmount[indexRow].Text);
+            listAmount[indexRow].Content = temp.ToString();
+            listAddorDownAmount[indexRow].Text = "0";
+        }
+
+        private int AddAmount(object number1,string number2) //для кнопки ButtonAdd
+        {
+            string str = number1.ToString();
+            int temp1 = int.Parse(str);
+            int temp2 = int.Parse(number2);
+            if (temp1 + temp2 <= 999) return temp1 + temp2;
+            else return temp1;
+        }
+
+        private int DownAmount(object number1, string number2) //для кнопки ButtonDown
+        {
+            string str = number1.ToString();
+            int temp1 = int.Parse(str);
+            int temp2 = int.Parse(number2);
+            if (temp1 - temp2 >= 0) return temp1 - temp2;
+            else return temp1;
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
