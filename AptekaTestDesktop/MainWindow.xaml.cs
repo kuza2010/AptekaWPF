@@ -169,6 +169,15 @@ namespace AptekaTestDesktop
             if (Grid.GetRow(canvas)==0&& Grid.GetColumn(canvas) == 0)
             ButtonDelProduct.Content = "eewq";
         }
+        void textBox_PreviewTextInput (object sender, TextCompositionEventArgs e) //функция,проверяющая ввод только цифр в textbox
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;
+        }
+
+        private void ButtonAdd_Click (object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 }
