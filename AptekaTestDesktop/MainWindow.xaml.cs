@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Text.RegularExpressions;
+using System;
 
 namespace AptekaTestDesktop
 {
@@ -28,6 +20,7 @@ namespace AptekaTestDesktop
 
         Canvas canvas;
         int count = 0;
+        
 
         public void AddProduct(string nameProduct)
         {
@@ -49,14 +42,16 @@ namespace AptekaTestDesktop
             Button buttonAdd = new Button();
             buttonAdd.Content = "Пополнить";
             buttonAdd.Template = (ControlTemplate)TryFindResource("ButtonAddorDownTemplate");
+            buttonAdd.Click += new RoutedEventHandler(ButtonAdd_Click); //нажатие кнопки
+            //buttonAdd.Click += (sender, args) => MessageBox.Show(this, "Ура!");
 
-            Label AddorDownAmount = new Label();
+            TextBox AddorDownAmount = new TextBox();
+            AddorDownAmount.FontSize = 25;
+            AddorDownAmount.PreviewTextInput += new TextCompositionEventHandler(textBox_PreviewTextInput); //событие,для проверки ввода в textbox только цифр
 
             Button buttonDown = new Button();
             buttonDown.Content = "Списать";
             buttonDown.Template = (ControlTemplate)TryFindResource("ButtonAddorDownTemplate");
-
-
 
             canvas.Children.Add(labelNumber);
             canvas.Children.Add(labelNameProduct);
@@ -131,6 +126,16 @@ namespace AptekaTestDesktop
                     }
                 }
             }
+        }
+
+        void textBox_PreviewTextInput(object sender, TextCompositionEventArgs e) //функция,проверяющая ввод только цифр в textbox
+        {
+            if (!char.IsDigit(e.Text, 0)) e.Handled = true;            
+        }
+
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e)
