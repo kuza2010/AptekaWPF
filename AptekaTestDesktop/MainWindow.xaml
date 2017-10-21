@@ -69,7 +69,21 @@
                 <ContentControl HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}"/>
             </Border>
         </ControlTemplate>
-
+        <ControlTemplate TargetType="Button" x:Key="ButtonAddorDownTemplate">
+            <Border x:Name="BorderButtonToolBar" CornerRadius="15" Style="{StaticResource ButtonAddorDown}">
+                <ContentControl HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                Content="{TemplateBinding Content}"/>
+            </Border>
+            <ControlTemplate.Triggers >
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="BorderButtonToolBar" Property="Background" Value="#9ad3fa" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter TargetName="BorderButtonToolBar" Property="BorderThickness" Value="1.5"/>
+                    <Setter TargetName="BorderButtonToolBar" Property="BorderBrush" Value="#eaf4fd"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
         <ControlTemplate  TargetType="TextBox" x:Key="TextBoxTemplate" >
 
             <Border x:Name="Bd"  Background="White" BorderBrush="White" CornerRadius="10">
