@@ -124,7 +124,8 @@ namespace AptekaTestDesktop
             AddorDownAmount.Height = 54;
             AddorDownAmount.Width = 54;
             AddorDownAmount.Template = (ControlTemplate)FindResource("TextBoxTemplate");
- 
+            AddorDownAmount.FontSize = 25;
+            AddorDownAmount.PreviewTextInput += new TextCompositionEventHandler(textBox_PreviewTextInput); //событие,для проверки ввода в textbox только цифр
             AddorDownAmount.HorizontalContentAlignment = HorizontalAlignment.Center;
             AddorDownAmount.VerticalContentAlignment = VerticalAlignment.Center;
             AddorDownAmount.Background = new SolidColorBrush(Colors.White);
