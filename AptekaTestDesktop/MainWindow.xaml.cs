@@ -114,6 +114,9 @@ namespace AptekaTestDesktop
             buttonAdd.HorizontalContentAlignment = HorizontalAlignment.Center;
             buttonAdd.VerticalContentAlignment = VerticalAlignment.Center;
             buttonAdd.Background = new SolidColorBrush(Colors.White);
+            buttonAdd.Template = (ControlTemplate) TryFindResource("ButtonAddorDownTemplate");
+            buttonAdd.Click += new RoutedEventHandler(ButtonAdd_Click); //нажатие кнопки
+            //buttonAdd.Click += (sender, args) => MessageBox.Show(this, "Ура!");
 
             //Установка свойст для товара который хотим списать/положить (лейбл)
             Canvas.SetTop(AddorDownAmount, 13);
