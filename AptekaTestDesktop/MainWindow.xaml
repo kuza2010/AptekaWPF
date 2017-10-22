@@ -52,7 +52,7 @@
             </Style.Triggers>
         </Style>
 
-
+        
         <ControlTemplate TargetType="Button" x:Key="ButtonToolBarTemplate">
             <Border x:Name="BorderButtonToolBar" CornerRadius="20" Style="{StaticResource ButtonToolBarStyle}">
                 <ContentControl HorizontalAlignment="Center" VerticalAlignment="Center" 
@@ -78,6 +78,7 @@
                 <ContentControl HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}"/>
             </Border>
         </ControlTemplate>
+        
         <ControlTemplate TargetType="Button" x:Key="ButtonAddorDownTemplate">
             <Border x:Name="BorderButtonToolBar" CornerRadius="15" Style="{StaticResource ButtonAddorDown}">
                 <ContentControl HorizontalAlignment="Center" VerticalAlignment="Center" 
@@ -93,6 +94,7 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        
         <ControlTemplate  TargetType="TextBox" x:Key="TextBoxTemplate" >
 
             <Border x:Name="Bd"  Background="White" BorderBrush="White" CornerRadius="10">
