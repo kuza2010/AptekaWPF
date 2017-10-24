@@ -25,7 +25,7 @@ namespace AptekaTestDesktop
         int count = 0;
         List<Label> listAmount = new List<Label>();
         List<TextBox> listAddorDownProduct = new List<TextBox>();
-
+        List<Canvas> listCanvas = new List<Canvas>();
 
         public MainWindow ()
         {
@@ -49,8 +49,7 @@ namespace AptekaTestDesktop
 
             //Все элементы строчки вложены в канвас
             canvas = new Canvas();
-
-            canvas.MouseDown +=(canvac_click);
+            
             //Номер товара и имя товара, количество,добавляемое количетсво товара
             Label labelNumber = new Label();
             Label labelNameProduct = new Label();
@@ -64,6 +63,7 @@ namespace AptekaTestDesktop
             //добавили в листы
             listAmount.Add(amount);
             listAddorDownProduct.Add(AddorDownAmount);
+            listCanvas.Add(canvas);
 
             //Кнопки списать и добавить
             Button buttonAdd = new Button();
@@ -78,8 +78,14 @@ namespace AptekaTestDesktop
             canvas.Children.Add(buttonAdd);
             canvas.Children.Add(listAddorDownProduct[count]);
             canvas.Children.Add(buttonDown);
+            canvas.Style = (Style) FindResource("NonDedicatedCanvas");
+
             //установитиь для канваса строку в гриде
+            Grid.SetColumn(canvas, 0);
             Grid.SetRow(canvas, count);
+
+            //Обработка нажатия на канвас
+            canvas.MouseDown += (Canvas_click);
 
             //установка свойст для счетчика товара(лейбл)
             Canvas.SetTop(labelNumber, 11);
@@ -126,7 +132,6 @@ namespace AptekaTestDesktop
             buttonAdd.Click += new RoutedEventHandler(ButtonAdd_Click); //нажатие кнопки
             buttonAdd.Name = "IndexRow_" + labelNumber.Content.ToString();
 
-
             //Установка свойст для товара который хотим списать/положить (лейбл)
             Canvas.SetTop(AddorDownAmount, 13);
             Canvas.SetLeft(AddorDownAmount, 405);
@@ -141,7 +146,7 @@ namespace AptekaTestDesktop
             AddorDownAmount.Background = new SolidColorBrush(Colors.White);
             AddorDownAmount.MaxLength = 3; //максимальное число 999
             AddorDownAmount.Name = "IndexRow_" + labelNumber.Content.ToString();
-
+            
             //Установка свойств для кнопки списать
             Canvas.SetTop(buttonDown, 23);
             Canvas.SetLeft(buttonDown, 459);
@@ -158,20 +163,22 @@ namespace AptekaTestDesktop
 
             count++;
         }
-
-        private void Canvas_MouseDown (object sender, MouseButtonEventArgs e)
+       
+        //Выделение строки для удаления
+        private void Canvas_click (object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.LeftButton == MouseButtonState.Pressed&&((Canvas) sender).Style == (Style) FindResource("NonDedicatedCanvas"))
+                //Выделили
+                ((Canvas) sender).Style = (Style) FindResource("DedicatedCanvas");
+            else
+                //сняли выделение при повторном клике
+                ((Canvas) sender).Style = (Style) FindResource("NonDedicatedCanvas");
         }
 
-        private void canvac_click (object sender, MouseButtonEventArgs e)
-        {
-            ((Canvas) sender).Background = new SolidColorBrush(Colors.Yellow);
-        }
-
-        /// //////////////////////////////////////////////////////////////////////////////
+        //Кнопка удаления
         private void ButtonDelProduct_Click (object sender, RoutedEventArgs e)
         {
+
             /*
             foreach (var gridChild in AllProducts.Children)
             {
@@ -187,13 +194,22 @@ namespace AptekaTestDesktop
                         }
                     }
                 }
-            }*/
-
+            }
             if (Grid.GetRow(canvas) == 0 && Grid.GetColumn(canvas) == 0)
                 ButtonDelProduct.Content = "eewq";
-        }
-        /// //////////////////////////////////////////////////////////////////////// 
-     
+           */
+
+            for (int i = 0; i < listCanvas.Count; i++)
+            {
+                if (listCanvas[i].Style == (Style) FindResource("DedicatedCanvas"))
+                {
+                    listCanvas.RemoveAt(i);
+                    AllProducts.Children.RemoveAt(i);
+
+                    break;               
+                }
+            }
+        }    
 
         //функция,проверяющая ввод только цифр в textbox
         void textBox_PreviewTextInput (object sender, TextCompositionEventArgs e) 
@@ -216,7 +232,7 @@ namespace AptekaTestDesktop
             if (amountProduct >= 1)
             {
                 listAmount[indexRow - 1].Content = amountProduct.ToString();
-                listAddorDownProduct[indexRow - 1].Text = "";
+                listAddorDownProduct[indexRow - 1].Text = "0";
             }
         }
 
@@ -233,7 +249,7 @@ namespace AptekaTestDesktop
             if (amountProduct >= 0)
             {
                 listAmount[indexRow - 1].Content = amountProduct.ToString();
-                listAddorDownProduct[indexRow - 1].Text = "";
+                listAddorDownProduct[indexRow - 1].Text = "0";
             }
         }
 
