@@ -1,12 +1,13 @@
-﻿<Window x:Class="AptekaTestDesktop.AddProduct"
+﻿<Window x:Class="AptekaTestDesktop.Warning"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AptekaTestDesktop"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterOwner"
-        Title="AddProduct" Height="243" Width="300" MaxHeight="215" MaxWidth="300" MinHeight="215" MinWidth="300">
+         WindowStartupLocation="CenterOwner"
+        Title="Warning" Height="145" Width="300" ResizeMode="NoResize">
+    
     <Window.Resources>
         <Style x:Key="Background_edf4fc">
             <Setter Property="Control.Background" Value="#edf4fc"/>
@@ -41,33 +42,22 @@
         </ControlTemplate>
 
     </Window.Resources>
-
-
-    <Grid x:Name="MainGrid" Style="{StaticResource Background_edf4fc}" >
+    
+    <Grid>
 
         <StackPanel>
-            
             <Grid Style="{StaticResource Background6792c1}" Height="60">
-                <TextBlock TextWrapping="Wrap" Width="190" VerticalAlignment="Center" TextAlignment="Center">
-                    Введите название  товара, которое хотите добавить в базу
+                <TextBlock  x:Name="WarningText" TextWrapping="Wrap" Width="190" VerticalAlignment="Center" TextAlignment="Center">
                 </TextBlock>
             </Grid>
-
-            <Grid>
-                <TextBox x:Name="NameProduct" PreviewTextInput="NameProduct_PreviewTextInput" MaxLength="27" TextWrapping="Wrap"  TextAlignment="Center" Height="54" 
-                         Width="175" Margin="0 5 0 5" ToolTip="Введите наименование товара" />
-            </Grid>
-
+            
             <Grid>
                 <Canvas>
                     <Button x:Name="ButtonOk"  Template="{StaticResource ButtonToolBarTemplate}"   
-                        Content="Ок" Canvas.Top="5" Canvas.Left="10" Cursor="Hand" Click="ButtonOk_Click" IsDefault="True" ToolTip="Нажмите, чтобы добавить товар"/>
-                    <Button x:Name="ButtonCancle" Template="{StaticResource ButtonToolBarTemplate}"   
-                        Content="Отмена" Canvas.Top="5" Canvas.Right="10" Click="ButtonCancle_Click" Cursor="Hand" IsCancel="True"  />
+                        Content="Ок" Canvas.Top="5" Canvas.Right="10" Cursor="Hand" Click="ButtonOk_Click" IsDefault="True" IsCancel="True"/>
                 </Canvas>
             </Grid>
-
         </StackPanel>
-
+        
     </Grid>
 </Window>

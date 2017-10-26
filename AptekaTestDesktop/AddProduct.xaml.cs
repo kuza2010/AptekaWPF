@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using System.IO;
 
 namespace AptekaTestDesktop
 {
@@ -23,16 +24,21 @@ namespace AptekaTestDesktop
         public AddProduct ()
         {
             InitializeComponent();
+            NameProduct.Focus();
         }
+        private string path = @"C:\Users\Артём\Desktop\АРТЕМ\НГТУ\5семестр\ООП\Проект АПТЕКА\AptekaTestDesktop\Apteka.txt"; //расположение файла
 
+        //Кнопка отмены
         private void ButtonCancle_Click (object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        //Кнопка окей
         private void ButtonOk_Click (object sender, RoutedEventArgs e)
         {
-            if (NameProduct.Text.ToString().Length != 0) 
+            //если есть наименование
+            if (NameProduct.Text.ToString().Length != 0)
             {
                 //Скрыть
                 this.Visibility = Visibility.Hidden;
@@ -41,24 +47,31 @@ namespace AptekaTestDesktop
                 MainWindow main = this.Owner as MainWindow;
                 if (main != null)
                 {
-                    //пердаем то, что написали в 
-                    string strNameProduct = NameProduct.Text.ToString();
+                    string strNameProduct = NameProduct.Text;
+                    using (StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default))
+                    {
+
+                        sw.WriteLine(strNameProduct + "=0"); //запись в файл товара с нулевым количеством
+                    }
                     main.AddProduct(strNameProduct);
                 }
                 this.Close();
-                
             }
-            else MessageBox.Show("Это окно временное, потом тут будет ошибка!");
+            else
+            {
+                Warning windowWarning = new Warning("Наименование товара не может быть пустым!");
+                windowWarning.Owner = this;  //Задали отцовское окно для дочернего
+                windowWarning.ShowDialog();  //Отобрразить как диалоговое окно
+            }
         }
 
+        //Валидация входа
         private void NameProduct_PreviewTextInput (object sender, TextCompositionEventArgs e)
         {
-            string  validChar = @"([0-9а-я])|[А-Я]|[.]";           //Цифры, русские буквы и символ '.'
+            string validChar = @"([0-9а-я])|[А-Я]|[.]";           //Цифры, русские буквы и символ '.'
             if (!Regex.IsMatch(e.Text.ToString(), validChar))
-                e.Handled = true; 
+                e.Handled = true;
         }
-
-
-       
+  
     }
 }

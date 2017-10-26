@@ -15,26 +15,21 @@ using System.Windows.Shapes;
 namespace AptekaTestDesktop
 {
     /// <summary>
-    /// Логика взаимодействия для DeleteProduct.xaml
+    /// Логика взаимодействия для Warning.xaml
     /// </summary>
-    public partial class DeleteProduct : Window
+    public partial class Warning : Window
     {
-        public DeleteProduct ()
+        public Warning ()
         {
             InitializeComponent();
         }
-
-        private void ButtonOk_Click (object sender, RoutedEventArgs e)
+        public Warning(string warning)
         {
-            MainWindow main = this.Owner as MainWindow;
-            if (main != null)
-            {
-                main.Delete();
-            }
-            this.Close();
+            InitializeComponent();
+            WarningText.Text = warning;
         }
 
-        private void ButtonCancle_Click (object sender, RoutedEventArgs e)
+        private void ButtonOk_Click (object sender, RoutedEventArgs e)
         {
             this.Close();
         }

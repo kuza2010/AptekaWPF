@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AptekaTestDesktop"
         mc:Ignorable="d"
-        Title="DeleteProduct" Height="140" Width="300" MinHeight="140" MinWidth="300" MaxHeight="140" MaxWidth="300">
+        WindowStartupLocation="CenterOwner"
+        Title="DeleteProduct" Height="145" Width="300" MinHeight="145" MinWidth="300" MaxHeight="145" MaxWidth="300">
     <Window.Resources>
         <Style x:Key="Background_edf4fc">
             <Setter Property="Control.Background" Value="#edf4fc"/>
@@ -54,9 +55,9 @@
             <Grid>
                 <Canvas>
                     <Button x:Name="ButtonOk"  Template="{StaticResource ButtonToolBarTemplate}"   
-                        Content="Ок" Canvas.Top="5" Canvas.Left="10" Cursor="Hand" />
+                        Content="Ок" Canvas.Top="5" Canvas.Left="10" Cursor="Hand" Click="ButtonOk_Click" IsDefault="True" />
                     <Button x:Name="ButtonCancle" Template="{StaticResource ButtonToolBarTemplate}"   
-                        Content="Отмена" Canvas.Top="5" Canvas.Right="10" Cursor="Hand"  />
+                        Content="Отмена" Canvas.Top="5" Canvas.Right="10" Cursor="Hand" Click="ButtonCancle_Click" IsCancel="True"  />
                 </Canvas>
             </Grid>
 
