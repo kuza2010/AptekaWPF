@@ -25,6 +25,7 @@ namespace AptekaTestDesktop
         {
             InitializeComponent();
             NameProduct.Focus();
+            NameProduct.CommandBindings.Add(new CommandBinding(ApplicationCommands.Paste, OnPasteCommand));
         }
         private string path = @"C:\Users\Артём\Desktop\АРТЕМ\НГТУ\5семестр\ООП\Проект АПТЕКА\AptekaTestDesktop\Apteka.txt"; //расположение файла
 
@@ -72,6 +73,10 @@ namespace AptekaTestDesktop
             if (!Regex.IsMatch(e.Text.ToString(), validChar))
                 e.Handled = true;
         }
-  
+
+        public void OnPasteCommand (object sender, ExecutedRoutedEventArgs e)
+        {
+            //здесь можно задать условия запрета вставки, если ничего не писать, то просто запрещается вставка
+        }
     }
 }

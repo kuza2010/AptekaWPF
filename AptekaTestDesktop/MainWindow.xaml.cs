@@ -34,6 +34,8 @@ namespace AptekaTestDesktop
         List<Button> listButtonDown = new List<Button>();
         List<Label> listNameProduct = new List<Label>();
 
+        List<int> listPopolnenieTovara = new List<int>();
+
         public MainWindow ()
         {
             InitializeComponent();
@@ -67,6 +69,19 @@ namespace AptekaTestDesktop
                     AddProduct(nameproduct, amountproduct);
                 }
             }
+        }
+
+        private void PopolnenieTovaraSukka(string amountProduct)
+        {
+            int popolnenieTovara = Int32.Parse(amountProduct) / 10;
+            listPopolnenieTovara.Add(popolnenieTovara);
+        }
+
+        private void PopolnenieTovaraSukka (string amountProduct, int index)
+        {
+
+            int popolnenieTovara = Int32.Parse(amountProduct) / 10;
+            listPopolnenieTovara[index]=popolnenieTovara;
         }
 
         //Кнопка добавление продукта
@@ -161,8 +176,8 @@ namespace AptekaTestDesktop
             amount.VerticalContentAlignment = VerticalAlignment.Center;
             if (amountProduct == "-1") amount.Content = "0"; //если не из файла
             else amount.Content = amountProduct; //из файла
+            PopolnenieTovaraSukka(amountProduct);
             amount.Background = new SolidColorBrush(Colors.White);
-
             //Установка свойств для кнопки добавить
             Canvas.SetTop(buttonAdd, 23);
             Canvas.SetLeft(buttonAdd, 305);
@@ -190,6 +205,7 @@ namespace AptekaTestDesktop
             AddorDownAmount.Background = new SolidColorBrush(Colors.White);
             AddorDownAmount.MaxLength = 3; //максимальное число 999
             AddorDownAmount.GotFocus += new RoutedEventHandler(AddorDownAmount_GotFocus);
+            AddorDownAmount.CommandBindings.Add(new CommandBinding(ApplicationCommands.Paste, OnPasteCommand));
 
             //Установка свойств для кнопки списать
             Canvas.SetTop(buttonDown, 23);
@@ -207,7 +223,12 @@ namespace AptekaTestDesktop
 
             countProduct++;
         }
-  
+
+        public void OnPasteCommand (object sender, ExecutedRoutedEventArgs e)
+        {
+            //здесь можно задать условия запрета вставки, если ничего не писать, то просто запрещается вставка
+        }
+
         //Выделение строки для удаления
         private void Canvas_click (object sender, MouseButtonEventArgs e)
         {
@@ -243,6 +264,7 @@ namespace AptekaTestDesktop
                 {
                     DeleteProductFromFile(listNameProduct[i].Content, i);
 
+                    listPopolnenieTovara.RemoveAt(i);
                     listCanvas.RemoveAt(i);
                     listAmount.RemoveAt(i);
                     listNameProduct.RemoveAt(i);
@@ -314,6 +336,7 @@ namespace AptekaTestDesktop
                 int amountProduct = GetAmountProduct(Int32.Parse(listAmount[indexRow].Content.ToString()), Int32.Parse(listAddorDownProduct[indexRow].Text.ToString()), "Add");
                 if (amountProduct >= 1)
                 {
+                    PopolnenieTovaraSukka(amountProduct.ToString(), indexRow);
                     ChangeFileAmountProduct(indexRow, amountProduct); //изменение кол-ва товара в файле
                     listAmount[indexRow].Content = amountProduct.ToString();
                     listAddorDownProduct[indexRow].Text = "0";
@@ -328,7 +351,7 @@ namespace AptekaTestDesktop
             string name = ((Button) sender).Name;
             int indexRow = Int32.Parse(name.Remove(0, 9));
 
-            if (listAddorDownProduct[indexRow].Text == "")
+            if (listAddorDownProduct[indexRow].Text == ""|| listAddorDownProduct[indexRow].Text == "0")
             {
                 Warning windowWarning = new Warning("Введите количетсво отличное от нуля!");
                 windowWarning.Owner = this;  //Задали отцовское окно для дочернего
@@ -340,10 +363,17 @@ namespace AptekaTestDesktop
                 //расчет кол-ва товара ведет функция GetAmountProduct
                 int amountProduct = GetAmountProduct(Int32.Parse(listAmount[indexRow].Content.ToString()), Int32.Parse(listAddorDownProduct[indexRow].Text.ToString()), "Take");
                 if (amountProduct >= 0)
-                {
+                {  
                     ChangeFileAmountProduct(indexRow, amountProduct); //изменение кол-ва товара в файле
                     listAmount[indexRow].Content = amountProduct.ToString();
                     listAddorDownProduct[indexRow].Text = "0";
+                    if (listPopolnenieTovara[indexRow]>=amountProduct)
+                    {
+                        Warning windowWarning = new Warning("Пополните количество товара!");
+                        windowWarning.Owner = this;  //Задали отцовское окно для дочернего
+                        windowWarning.ShowDialog();  //Отобрразить как диалоговое окно
+                        PopolnenieTovaraSukka(amountProduct.ToString(), indexRow);
+                    }
                 }
             }
         }
